@@ -16,7 +16,7 @@ Button.defaultProps = {
   className: '',
   variant: 'filled',
   color: 'primary',
-  content: 'dddd',
+  content: 'Button',
   disabled: false,
   size: 'm',
 };
