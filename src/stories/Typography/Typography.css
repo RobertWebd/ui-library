@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz@1,6..96&family=Poppins&display=swap');
+
+.typography.default {
+  color: #efefee;
+}
+
+.typography.bloody {
+  color: rgb(136, 8, 8);
+}
+
+.typography.gradient {
+  width: fit-content;
+  background: linear-gradient(to right, rgb(208, 32, 85), rgb(240, 156, 60));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.typography.Poppins {
+  font-family: Poppins;
+}
+
+.typography.Helvetica {
+  font-family: Helvetica;
+}
+.typography.Bodoni {
+  font-family: Bodoni;
+}
+
+.typography:disabled {
+  opacity: 0.4;
+}
