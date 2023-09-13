@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import './Input.css';
-import { Fragment } from 'react';
 
 export const Input = ({ className, variant, color, size, value, placeholder, label, disabled, error, ...props }) => {
   return (
