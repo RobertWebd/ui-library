@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './Button.css';
 
-export const Button = ({ className, variant, color, content, icon, disabled = false, size, ...props }) => {
+export const Button = ({ className, variant, color, content, icon, disabled, size, ...props }) => {
   return (
     <button className={`button ${className} ${variant} ${color} ${size}`} disabled={disabled} {...props}>
       <div className="content">
