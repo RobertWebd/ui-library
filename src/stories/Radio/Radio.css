@@ -1,0 +1,118 @@
+/* radioBtnGroup */
+
+/* .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.direction {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+  align-items: center;
+} */
+.radio p {
+  font-size: 20px;
+}
+
+.wrapper label {
+  width: fit-content;
+}
+
+.wrapper label:hover {
+  background-color: rgba(0, 0, 0, 0.054);
+  cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.radio {
+  display: none;
+}
+
+.radio + label {
+  display: flex;
+  padding: 5px;
+  border-radius: 50%;
+  transition: 0.2s ease-in-out;
+}
+
+.radio.disabled + label {
+  opacity: 0.2;
+  cursor: unset;
+}
+
+.radio + label::before {
+  content: '';
+  border-radius: 50%;
+}
+
+.radio.red + label::before {
+  border: 2px solid red;
+}
+
+.radio.red:checked + label::before {
+  background-color: red;
+}
+
+.radio.green + label::before {
+  border: 2px solid green;
+}
+
+.radio.green:checked + label::before {
+  background-color: green;
+}
+
+.radio.black + label::before {
+  border: 2px solid black;
+}
+
+.radio.black:checked + label::before {
+  background-color: black;
+}
+
+.radio.blue + label::before {
+  border: 2px solid blue;
+}
+
+.radio.blue:checked + label::before {
+  background-color: blue;
+}
+
+.radio.pink + label::before {
+  border: 2px solid rgb(216, 27, 97);
+}
+
+.radio.pink:checked + label::before {
+  background-color: rgb(216, 27, 97);
+}
+
+.radio.s + label::before {
+  width: 10px;
+  height: 10px;
+}
+.radio.m + label::before {
+  width: 15px;
+  height: 15px;
+}
+.radio.l + label::before {
+  width: 20px;
+  height: 20px;
+}

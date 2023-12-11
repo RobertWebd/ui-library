@@ -1,0 +1,61 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  list-style: none;
+  text-decoration: none;
+}
+
+.select_wrapper {
+  position: relative;
+}
+
+.selectName {
+  position: absolute;
+}
+
+.select {
+  padding: 5px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.select.standart {
+  background-color: transparent;
+  border-bottom: 2px solid rgb(185, 186, 188);
+}
+
+.select.filled {
+  background-color: rgb(40, 46, 50);
+  color: rgb(191, 193, 194);
+  border-radius: 2px 2px 0 0;
+}
+
+.select_wrapper .helperText {
+  color: rgba(0, 0, 0, 0.404);
+  font-size: 13px;
+}
+
+.select.disabled {
+  cursor: unset;
+}
+
+.select.s {
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+}
+.select.m {
+  width: 125px;
+  height: 40px;
+  font-size: 20px;
+}
+.select.l {
+  width: 150px;
+  height: 50px;
+  font-size: 25px;
+}

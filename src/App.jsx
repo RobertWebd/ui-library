@@ -1,8 +1,8 @@
 import './App.css';
-import { Checkbox } from './stories/Checkbox/Checkbox';
+import { Radio } from './stories/Radio/Radio';
 
 function App() {
-  return <Checkbox />;
+  return <Radio />;
 }
 
 export default App;

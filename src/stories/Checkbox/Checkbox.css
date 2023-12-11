@@ -1,10 +1,10 @@
 .custom-checkbox {
   display: flex;
   align-items: center;
-  color: white;
+  color: rgb(167, 0, 0);
 }
 
-.checkbox:disabled {
+.custom-checkbox.disabled {
   opacity: 0.2;
   cursor: unset;
 }

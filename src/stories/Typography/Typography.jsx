@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types';
 import './Typography.css';
-// import { createElement } from 'react';
 
-export const Typography = ({ className, variant, content, color, fontFamily, disabled, ...props }) => {
+export const Typography = ({ className, variant, content, color, fontFamily, ...props }) => {
   const Variant = variant;
   return (
-    <Variant className={`typography ${className} ${color} ${fontFamily}`} disabled={disabled} {...props}>
+    <Variant className={`typography ${className} ${color} ${fontFamily}`} {...props}>
       {content}
     </Variant>
   );
-  // return createElement(
-  //   variant,
-  //   [{ className: `typography ${className} ${color} ${fontFamily}` }, { disabled: disabled }, { ...props }],
-  //   content,
-  // );
 };
 
 Typography.defaultProps = {
@@ -22,7 +16,6 @@ Typography.defaultProps = {
   content: 'Robert',
   color: 'default',
   fontFamily: 'Poppins',
-  disabled: false,
 };
 
 Typography.propTypes = {
@@ -31,5 +24,4 @@ Typography.propTypes = {
   content: PropTypes.string,
   color: PropTypes.oneOf(['default', 'bloody', 'gradient']),
   fontFamily: PropTypes.oneOf(['Poppins', 'Helvetica', 'Bodoni']),
-  disabled: PropTypes.bool,
 };
