@@ -1,15 +1,15 @@
-import { Checkbox } from './Checkbox';
+import { DatePicker } from './DatePicker';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 export default {
-  title: 'Example/Checkbox',
-  component: Checkbox,
+  title: 'Example/DatePicker',
+  component: DatePicker,
   tags: ['autodocs'],
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Filled = {
+export const Dark = {
   args: {
-    color: 'primary',
+    size: 'm',
   },
 };
