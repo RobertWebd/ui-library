@@ -47,6 +47,5 @@ export const getMonthData = (year, month) => {
       }
     }
   }
-  // console.log(res);
   return res;
 };

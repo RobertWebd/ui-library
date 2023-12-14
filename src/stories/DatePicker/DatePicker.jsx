@@ -1,8 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
-import { defaultProps, curDate, options, mockHappyDays, dateRange } from './scripts/consts';
+import { options, dateRange, DefaultMonths, DefaultYears, DefaultWeekNames } from './scripts/consts';
 import { getYear, getMonth } from './scripts/utils';
+import { Day } from './components/day';
 
 import * as calendar from './scripts/calendarData';
 
@@ -11,15 +12,70 @@ import './DatePicker.css';
 export const DatePicker = () => {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
-  // const [openHint, setOpenHint] = useState(false);
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
 
   const MonthSelectRef = useRef(null);
   const YearSelectRef = useRef(null);
-  const mouseEnter = useRef(null);
+
+  const switchToPrevMonthDisabled = useMemo(() => {
+    return date.getFullYear() === dateRange.dateFrom.getFullYear() && date.getMonth() === dateRange.dateFrom.getMonth();
+  }, [date, dateRange]);
+
+  const switchToNextMonthDisabled = useMemo(() => {
+    return date.getFullYear() === dateRange.dateTo.getFullYear() && date.getMonth() === dateRange.dateTo.getMonth();
+  }, [date, dateRange]);
 
   const monthData = calendar.getMonthData(date.getFullYear(), date.getMonth());
+
+  const monthsArr = (from, to) => {
+    let res = [];
+
+    for (let i = from; i <= to; i++) {
+      res.push(DefaultMonths[i]);
+    }
+    return res;
+  };
+
+  const years = useMemo(() => {
+    if (!dateRange) {
+      return DefaultYears;
+    }
+
+    let res = [];
+
+    for (let i = dateRange.dateFrom.getFullYear(); i <= dateRange.dateTo.getFullYear(); i++) {
+      res.push(`${i}`);
+    }
+
+    return res;
+  }, [date, dateRange]);
+
+  const months = useMemo(() => {
+    if (!dateRange) {
+      return DefaultMonths;
+    }
+
+    const currentYear = date.getFullYear();
+    const yearFrom = dateRange.dateFrom.getFullYear();
+    const yearTo = dateRange.dateTo.getFullYear();
+    const monthFrom = dateRange.dateFrom.getMonth();
+    const monthTo = dateRange.dateTo.getMonth();
+
+    if (yearFrom < currentYear && currentYear < yearTo) {
+      return DefaultMonths;
+    }
+
+    if (yearFrom === currentYear) {
+      if (currentYear === yearTo) {
+        return monthsArr(monthFrom, monthTo);
+      } else if (currentYear < yearTo) {
+        return monthsArr(monthFrom, 11);
+      }
+    } else if (currentYear > yearFrom && yearTo === currentYear) {
+      return monthsArr(0, monthTo);
+    }
+  }, [dateRange, date]);
 
   const handleInputClick = () => {
     setOpen(true);
@@ -44,45 +100,27 @@ export const DatePicker = () => {
   };
 
   const handleSelectChange = () => {
-    const year = YearSelectRef.current.value;
-    const month = MonthSelectRef.current.value;
+    let year = Number(YearSelectRef.current.value);
+    let month = Number(MonthSelectRef.current.value);
+
+    if (
+      year < dateRange.dateFrom.getFullYear() ||
+      (year === dateRange.dateFrom.getFullYear() && month < dateRange.dateFrom.getMonth())
+    ) {
+      year = dateRange.dateFrom.getFullYear();
+      month = dateRange.dateFrom.getMonth();
+    }
+
+    if (
+      year > dateRange.dateTo.getFullYear() ||
+      (year === dateRange.dateTo.getFullYear() && month > dateRange.dateTo.getMonth())
+    ) {
+      year = dateRange.dateTo.getFullYear();
+      month = dateRange.dateTo.getMonth();
+    }
     const date = new Date(year, month);
 
     setDate(date);
-  };
-
-  const isDayDisabled = (date) => {
-    if (date.getTime() >= dateRange.dateFrom.getTime() && date.getTime() <= dateRange.dateTo.getTime()) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const handleShowHint = (e, date) => {
-    if (isDayHappy(date)) {
-      e.target.insertAdjacentHTML('beforeend', `<div class="hint">${textByDate(date)}</div>`);
-    }
-  };
-
-  const handleHideHint = (e, date) => {
-    if (isDayHappy(date)) {
-      e.target.removeChild(e.target.lastChild);
-    }
-  };
-
-  const isDayHappy = (date) => {
-    return mockHappyDays.some(
-      (obj) => obj.dateFrom.getTime() <= date.getTime() && obj.dateTo.getTime() >= date.getTime(),
-    );
-  };
-
-  const textByDate = (date) => {
-    const res = mockHappyDays.find(
-      (obj) => obj.dateFrom.getTime() <= date.getTime() && obj.dateTo.getTime() >= date.getTime(),
-    );
-
-    return res.label;
   };
 
   return (
@@ -91,28 +129,42 @@ export const DatePicker = () => {
       {open && (
         <div className="calendar">
           <div className="header">
-            <Button onClick={handlePrevMonth} content="<" size="s" color="secondary" variant="outlined" />
+            <Button
+              onClick={handlePrevMonth}
+              content="<"
+              size="s"
+              color="secondary"
+              variant="outlined"
+              disabled={switchToPrevMonthDisabled}
+            />
             <select className="months" onChange={handleSelectChange} ref={MonthSelectRef} value={date.getMonth()}>
-              {defaultProps.months.map((month, index) => (
-                <option key={month} value={index}>
+              {months.map((month) => (
+                <option key={month} value={DefaultMonths.indexOf(month)}>
                   {month}
                 </option>
               ))}
             </select>
             <select className="years" ref={YearSelectRef} onChange={handleSelectChange} value={date.getFullYear()}>
-              {defaultProps.years.map((year) => (
+              {years.map((year) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
               ))}
             </select>
-            <Button onClick={handleNextMonth} content=">" size="s" color="secondary" variant="outlined" />
+            <Button
+              onClick={handleNextMonth}
+              content=">"
+              size="s"
+              color="secondary"
+              variant="outlined"
+              disabled={switchToNextMonthDisabled}
+            />
           </div>
           <div className="days">
             <table>
               <thead>
                 <tr>
-                  {defaultProps.weekNames.map((day) => (
+                  {DefaultWeekNames.map((day) => (
                     <th key={day} className="size">
                       {day}
                     </th>
@@ -124,18 +176,12 @@ export const DatePicker = () => {
                   <tr key={index} className="week">
                     {week.map((date, index) =>
                       date ? (
-                        <td
-                          onMouseEnter={(e) => handleShowHint(e, date)}
-                          onMouseOut={(e) => handleHideHint(e, date)}
-                          key={index}
-                          onClick={() => handleSelectDay(date)}
-                          className={`day ${calendar.isCurrentDay(date, curDate) && 'currentDay'} ${
-                            calendar.isCurrentDay(date, selectedDate) && 'selectedDay'
-                          } ${isDayDisabled(date) && 'disabled'} ${isDayHappy(date) && 'holiday'}`}
-                          ref={calendar.isCurrentDay(date, selectedDate) ? mouseEnter : null}
-                        >
-                          {date.getDate()}
-                        </td>
+                        <Day
+                          key={date.getTime()}
+                          date={date}
+                          onSelectDay={handleSelectDay}
+                          className={calendar.isCurrentDay(date, selectedDate) && 'selectedDay'}
+                        />
                       ) : (
                         <td key={index} />
                       ),
