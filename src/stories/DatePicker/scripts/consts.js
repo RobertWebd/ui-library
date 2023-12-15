@@ -28,10 +28,7 @@ export const DefaultMonths = [
   'November',
   'December',
 ];
+
 export const DefaultWeekNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-export const DefaultYears = [];
-
-for (let i = 1950; i <= 2050; i++) {
-  DefaultYears.push(`${i}`);
-}
+export const DefaultYears = new Array(100).fill(0).map((_, index) => index + 1950);

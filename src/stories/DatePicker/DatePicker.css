@@ -13,7 +13,6 @@
 .wrapper {
   position: relative;
   height: 420px;
-  width: fit-content;
 }
 
 .wrapper input {
