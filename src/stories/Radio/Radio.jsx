@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import './Radio.css';
 
-export const Radio = ({ color, label, disabled, size, value, onChange, checked }) => {
+export const Radio = ({ color, label, disabled, size, value, onChange }) => {
   return (
     <div className="wrapper">
       <input

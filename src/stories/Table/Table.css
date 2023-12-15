@@ -1,0 +1,77 @@
+caption {
+  border-radius: 5px 5px 0 0;
+  padding: 5px;
+  text-align-last: left;
+  padding-left: 14px;
+}
+
+caption.dark {
+  color: rgba(255, 254, 237, 0.4);
+  background-color: rgb(30, 30, 30);
+}
+
+caption.bright {
+  color: rgba(30, 30, 30, 0.58);
+  background-color: rgb(243, 243, 243);
+}
+
+.table_wrapper {
+  height: 50px;
+}
+
+.table {
+  border-radius: 0 0 5px 5px;
+  padding: 5px;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+.table.dark {
+  background-color: rgb(30, 30, 30);
+  color: rgb(255, 254, 237);
+}
+
+.table.bright {
+  background-color: rgb(243, 243, 243);
+  color: rgb(30, 30, 30);
+}
+
+.headRow {
+  text-align: center;
+}
+
+.th,
+.td {
+  padding: 10px;
+}
+
+.th {
+  text-align: right;
+  font-size: 700;
+  padding-top: 0;
+}
+
+.th.stickyHeader {
+  position: sticky;
+  top: -20px;
+  padding-top: 0;
+  background-color: rgb(30, 30, 30);
+}
+
+.td {
+  text-align: right;
+}
+
+.td.dark {
+  border-top: 1px solid rgb(255, 255, 255);
+}
+
+.td.bright {
+  background-color: rgb(243, 243, 243);
+
+  border-top: 1px solid rgb(30, 30, 30);
+}
+
+.td.name {
+  text-align: left;
+}
