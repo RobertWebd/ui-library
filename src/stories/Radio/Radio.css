@@ -2,16 +2,16 @@
   font-size: 20px;
 }
 
-.wrapper label {
+.radioWrapper label {
   width: fit-content;
 }
 
-.wrapper label:hover {
+.radioWrapper label:hover {
   background-color: rgba(0, 0, 0, 0.054);
   cursor: pointer;
 }
 
-.wrapper {
+.radioWrapper {
   display: flex;
   align-items: center;
   justify-content: center;

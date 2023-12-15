@@ -3,7 +3,7 @@ import './Radio.css';
 
 export const Radio = ({ color, label, disabled, size, value, onChange }) => {
   return (
-    <div className="wrapper">
+    <div className="radioWrapper">
       <input
         value={value}
         onChange={onChange}
