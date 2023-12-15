@@ -45,7 +45,6 @@
 
 .title {
   color: white;
-  /* flex: 1 1 auto; */
 }
 
 .days {
@@ -58,55 +57,13 @@
   height: 34px;
 }
 
-.day {
-  border: 2px solid transparent;
-  text-align: center;
-  padding: 5px;
-  border-radius: 5px;
-  position: relative;
-}
-
-.day:hover {
-  background-color: #383838;
-  cursor: pointer;
-}
-
-.currentDay {
-  border: 2px solid rgba(255, 0, 0, 0.552);
-}
-
-.selectedDay {
-  border: 2px solid rgba(35, 248, 248, 0.597);
-}
-
 .years,
 .months {
   padding: 7px;
   border-radius: 5px;
   cursor: pointer;
 }
-.disabled {
-  pointer-events: none;
-  color: #999;
-}
 
 .week {
   position: relative;
-}
-
-.hint {
-  position: absolute;
-  top: -30px;
-  right: -40px;
-  height: 20px;
-  width: 70px;
-  background-color: rgb(144, 143, 143);
-  color: white;
-  padding: 2px;
-  border-radius: 5px;
-  z-index: 2;
-}
-
-.holiday {
-  background-color: rgba(255, 0, 0, 0.453);
 }
