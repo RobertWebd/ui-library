@@ -2,7 +2,7 @@ import { useState, useRef, useMemo } from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import { options, dateRange, DefaultMonths, DefaultYears, DefaultWeekNames } from './scripts/consts';
-import { getYear, getMonth } from './scripts/utils';
+import { getYear, getMonth, getInitialDate, getMonthsArr } from './scripts/utils';
 import { Day } from './components/day';
 
 import * as calendar from './scripts/calendarData';
@@ -12,30 +12,27 @@ import './DatePicker.css';
 export const DatePicker = () => {
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(getInitialDate(dateRange.dateFrom));
   const [selectedDate, setSelectedDate] = useState(null);
 
   const MonthSelectRef = useRef(null);
   const YearSelectRef = useRef(null);
 
+  const yearFrom = dateRange.dateFrom.getFullYear();
+  const yearTo = dateRange.dateTo.getFullYear();
+  const monthFrom = dateRange.dateFrom.getMonth();
+  const monthTo = dateRange.dateTo.getMonth();
+  const currentYear = date.getFullYear();
+
   const switchToPrevMonthDisabled = useMemo(() => {
-    return date.getFullYear() === dateRange.dateFrom.getFullYear() && date.getMonth() === dateRange.dateFrom.getMonth();
+    return date.getFullYear() === yearFrom && date.getMonth() === monthFrom;
   }, [date, dateRange]);
 
   const switchToNextMonthDisabled = useMemo(() => {
-    return date.getFullYear() === dateRange.dateTo.getFullYear() && date.getMonth() === dateRange.dateTo.getMonth();
+    return date.getFullYear() === yearTo && date.getMonth() === monthTo;
   }, [date, dateRange]);
 
   const monthData = calendar.getMonthData(date.getFullYear(), date.getMonth());
-
-  const monthsArr = (from, to) => {
-    let res = [];
-
-    for (let i = from; i <= to; i++) {
-      res.push(DefaultMonths[i]);
-    }
-    return res;
-  };
 
   const years = useMemo(() => {
     if (!dateRange) {
@@ -44,8 +41,8 @@ export const DatePicker = () => {
 
     let res = [];
 
-    for (let i = dateRange.dateFrom.getFullYear(); i <= dateRange.dateTo.getFullYear(); i++) {
-      res.push(`${i}`);
+    for (let i = yearFrom; i <= yearTo; i++) {
+      res.push(i);
     }
 
     return res;
@@ -56,24 +53,20 @@ export const DatePicker = () => {
       return DefaultMonths;
     }
 
-    const currentYear = date.getFullYear();
-    const yearFrom = dateRange.dateFrom.getFullYear();
-    const yearTo = dateRange.dateTo.getFullYear();
-    const monthFrom = dateRange.dateFrom.getMonth();
-    const monthTo = dateRange.dateTo.getMonth();
-
     if (yearFrom < currentYear && currentYear < yearTo) {
       return DefaultMonths;
     }
 
-    if (yearFrom === currentYear) {
-      if (currentYear === yearTo) {
-        return monthsArr(monthFrom, monthTo);
-      } else if (currentYear < yearTo) {
-        return monthsArr(monthFrom, 11);
-      }
-    } else if (currentYear > yearFrom && yearTo === currentYear) {
-      return monthsArr(0, monthTo);
+    if (currentYear > yearFrom && yearTo === currentYear) {
+      return getMonthsArr(0, monthTo);
+    }
+
+    if (currentYear === yearTo) {
+      return getMonthsArr(monthFrom, monthTo);
+    }
+
+    if (currentYear < yearTo) {
+      return getMonthsArr(monthFrom, 11);
     }
   }, [dateRange, date]);
 
@@ -103,24 +96,17 @@ export const DatePicker = () => {
     let year = Number(YearSelectRef.current.value);
     let month = Number(MonthSelectRef.current.value);
 
-    if (
-      year < dateRange.dateFrom.getFullYear() ||
-      (year === dateRange.dateFrom.getFullYear() && month < dateRange.dateFrom.getMonth())
-    ) {
-      year = dateRange.dateFrom.getFullYear();
-      month = dateRange.dateFrom.getMonth();
+    if (year < yearFrom || (year === yearFrom && month < monthFrom)) {
+      year = yearFrom;
+      month = monthFrom;
     }
 
-    if (
-      year > dateRange.dateTo.getFullYear() ||
-      (year === dateRange.dateTo.getFullYear() && month > dateRange.dateTo.getMonth())
-    ) {
-      year = dateRange.dateTo.getFullYear();
-      month = dateRange.dateTo.getMonth();
+    if (year > yearTo || (year === yearTo && month > monthTo)) {
+      year = yearTo;
+      month = monthTo;
     }
-    const date = new Date(year, month);
 
-    setDate(date);
+    setDate(new Date(year, month));
   };
 
   return (
