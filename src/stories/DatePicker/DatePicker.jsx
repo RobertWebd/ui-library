@@ -3,7 +3,7 @@ import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import { options, dateRange, DefaultMonths, DefaultYears, DefaultWeekNames } from './scripts/consts';
 import { getYear, getMonth, getInitialDate, getMonthsArr } from './scripts/utils';
-import { Day } from './components/day';
+import { Day } from './components/Day';
 
 import * as calendar from './scripts/calendarData';
 
