@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import './Button.css';
+import './button.css';
 
 export const Button = ({ className, variant, color, content, icon, disabled, size, ...props }) => {
   return (
