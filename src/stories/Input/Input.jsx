@@ -1,7 +1,19 @@
 import PropTypes from 'prop-types';
 import './Input.css';
 
-export const Input = ({ className, variant, color, size, value, placeholder, label, disabled, error, ...props }) => {
+export const Input = ({
+  className,
+  variant,
+  color,
+  size,
+  value,
+  placeholder,
+  label,
+  disabled,
+  error,
+  tabIndex,
+  ...props
+}) => {
   return (
     <div className="wrapper">
       {label && <label>{label}</label>}
@@ -10,6 +22,7 @@ export const Input = ({ className, variant, color, size, value, placeholder, lab
         value={value}
         placeholder={placeholder}
         disabled={disabled}
+        tabIndex={tabIndex}
         {...props}
       />
     </div>

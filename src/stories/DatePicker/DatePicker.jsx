@@ -17,6 +17,7 @@ export const DatePicker = () => {
 
   const MonthSelectRef = useRef(null);
   const YearSelectRef = useRef(null);
+  const datePickerRef = useRef(null);
 
   const yearFrom = dateRange.dateFrom.getFullYear();
   const yearTo = dateRange.dateTo.getFullYear();
@@ -72,6 +73,9 @@ export const DatePicker = () => {
 
   const handleInputClick = () => {
     setOpen(true);
+    setTimeout(() => {
+      datePickerRef.current.focus();
+    });
   };
 
   const handlePrevMonth = () => {
@@ -113,7 +117,7 @@ export const DatePicker = () => {
     <div className="wrapper">
       <Input variant="filled" value={value} onClick={handleInputClick} />
       {open && (
-        <div className="calendar">
+        <div className="calendar" ref={datePickerRef} tabIndex={0} onBlur={() => setOpen(false)}>
           <div className="header">
             <Button
               onClick={handlePrevMonth}
